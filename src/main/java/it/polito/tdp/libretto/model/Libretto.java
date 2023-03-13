@@ -18,6 +18,12 @@ public class Libretto {
 	 * @return true
 	 */
 	public boolean add(Voto v) {
+		if(this.esisteVotoDuplicato(v) || this.esisteVotoConflitto(v)) {
+			//non aggiungere voto
+			//posso farlo lanciando un eccezione
+			throw new IllegalArgumentException("Voto errato: "+v);
+			//o ritorno false
+		}
 		return this.voti.add(v);
 	}
 	
@@ -59,15 +65,60 @@ public class Libretto {
 		//throws new RuntimeException("Voto non trovato");
 	}
 	
-	public boolean esisteVoto(Voto nuovo) {
-		for(Voto v: voti ) {
+	public boolean esisteVotoDuplicato(Voto nuovo) {
+/*		for(Voto v: voti ) {
 		//	if(v.equalsCorsoPunti(nuovo))
 				//creo un metodo equalsCorsoPunti, conviene quando scrivo la stessa condizione anche in un altro punto del codice
 			//oppure
 			if(v.getCorso().equals(nuovo.getCorso()) && v.getPunti()== nuovo.getPunti())
 				return true;
 			}
+		return false;  */
+		
+		//oppure
+		for(Voto v: this.voti) {
+			if(v.isDuplicato(nuovo))
+				return true;
+		}
 		return false;
 	}
+	
+	public boolean esisteVotoConflitto(Voto nuovo) {
+	/*	for(Voto v: this.voti ) {
+			if(v.getCorso().equals(nuovo.getCorso()) && v.getPunti() != nuovo.getPunti())
+				return true;
+		}
+		return false;  */
+		
+		//oppure
+		for(Voto v: this.voti) {
+			if(v.isConflitto(nuovo))
+				return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Metodo 'factory' per creare un nuovo libretto
+	 * con i voti migliorati.
+	 * 
+	 * @return
+	 */
+	
+	public Libretto librettoMigliorato() {
+		Libretto migliore= new Libretto();
+		migliore.voti= new ArrayList<>();
+		for(Voto v: this.voti) {
+			migliore.voti.add(v.clone());
+		}
+		for(Voto v: migliore.voti) {
+			v.setPunti(v.getPunti()+2);
+		}
+		return migliore;
+	}
+	
+	
+	
+	
 	}
 

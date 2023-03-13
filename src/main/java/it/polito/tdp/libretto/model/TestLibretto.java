@@ -23,8 +23,23 @@ public class TestLibretto {
 		Voto albis= new Voto("Analisi 1", 29, LocalDate.of(2025,10,3));
 		Voto alter= new Voto("Analisi 1", 30, LocalDate.of(2025,10,3));
 		
-		System.out.println(albis +" è duplicato "+ lib.esisteVoto(albis));
-		System.out.println(alter +" è duplicato "+ lib.esisteVoto(alter));
+		System.out.println(albis +" è duplicato "+ lib.esisteVotoDuplicato(albis));
+		System.out.println(alter +" è duplicato "+ lib.esisteVotoDuplicato(alter));
+		
+		try {
+			lib.add(new Voto("Informatica", 25, LocalDate.of(2023, 7, 10)));
+		}catch(IllegalArgumentException e) {
+			System.out.println("Errore nell'inserimento voto.");
+			System.out.println(e.getMessage());
+			
+		}
+		
+		Libretto migliore= lib.librettoMigliorato();
+		System.out.println("Libretto migliorato");
+		migliore.Stampa();
+		
+		
+		
 	}
 	
 
