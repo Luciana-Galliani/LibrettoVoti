@@ -34,10 +34,13 @@ public class TestLibretto {
 			
 		}
 		
-		Libretto migliore= lib.librettoMigliorato();
+	/*	Libretto migliore= lib.librettoMigliorato();
 		System.out.println("Libretto migliorato");
 		migliore.Stampa();
+	*/	
 		
+		System.out.println("\nOrdine alfabetico dei corsi e voti descrescenti\n");
+		lib.librettoOrdinatoAlfabeticamente().Stampa();
 		
 		
 	}
